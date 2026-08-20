@@ -1,0 +1,56 @@
+services:
+  etl:
+    profiles: ["tools"]
+    build:
+      context: .
+      dockerfile: dockerfile.etl
+    environment:
+      PGHOST: postgres_bdgeo
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-bdgeo_2026}
+      PGUSER: ${POSTGRES_USER:-super_user}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-super_password}
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    depends_on:
+      postgres_bdgeo:
+        condition: service_healthy
+    networks:
+      - bdgeo-net
+
+  postgres_bdgeo:
+    image: postgis/postgis:17-3.5
+    container_name: postgres_bdgeo
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    shm_size: 1gb
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-super_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-super_password}
+      POSTGRES_DB: ${POSTGRES_DB:-bdgeo_2026}
+      POSTGRES_INITDB_ARGS: "--encoding UTF8 --data-checksums"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./infra/postgres/postgresql.conf:/etc/postgresql/postgresql.conf:ro
+      - ./infra/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+    command:
+      - "postgres"
+      - "-c"
+      - "config_file=/etc/postgresql/postgresql.conf"
+      - "-c"
+      - "hba_file=/etc/postgresql/pg_hba.conf"
+    networks:
+      - bdgeo-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 2s
+      retries: 15
+      
+networks:
+  bdgeo-net:
+    driver: bridge
+
+volumes:
+  postgres_data:

@@ -1,0 +1,13 @@
+FROM ghcr.io/osgeo/gdal@sha256:96ce8fc6f9359cdfea6bb2a489d824f8bebd0dee66ad6d044bbe85ee33ea4b5e
+
+# Remove o repo Apache Arrow herdado da imagem base (GPG NO_PUBKEY quebra o apt-get update)
+RUN rm -f /etc/apt/sources.list.d/apache-arrow.sources
+
+# Dependências mínimas do ETL: baixar via WFS (curl), ler JSON (jq) e carregar no Postgres (ogr2ogr/psql)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        curl \
+        jq \
+        less \
+        postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
