@@ -5,11 +5,7 @@
 # Fluxo:
 #   WFS -> download paginado em GeoJSON -> ogr2ogr -> raw.car_area_imovel_<UF>
 #
-# Uso:
-#   ./etl_cadastro_ambiental_rural.sh <uf>
-#
-# Exemplo:
-#   ./etl_cadastro_ambiental_rural.sh sp
+# Executa automaticamente para todas as UFs definidas em ESTADOS.
 
 set -euo pipefail
 
@@ -25,7 +21,7 @@ PAGE_SIZE=10000
 MAX_RETRIES=5
 RETRY_DELAY=5
 
-ESTADOS_VALIDOS="ac ap am pa rr ro ma pi ce rn pb pe al se ba es rj sp mg pr sc rs ms mt go df to"
+ESTADOS="ac ap am sp pa rr ro ma pi ce rn pb pe al se ba es rj mg pr sc rs ms mt go df to"
 
 # -----------------------------------------------------------------------------
 # Funções auxiliares
@@ -37,7 +33,7 @@ log() {
 
 psql_exec() {
     local sql="$1"
-    psql "$PG_CONNECTION" -v ON_ERROR_STOP=1 -qAtc "$sql"
+    psql "$PSQL_CONNECTION" -v ON_ERROR_STOP=1 -qAtc "$sql"
 }
 
 get_total_records() {
@@ -105,7 +101,7 @@ load_raw() {
 }
 
 # -----------------------------------------------------------------------------
-# Execução principal
+# ETL de uma UF
 # -----------------------------------------------------------------------------
 
 main() {
@@ -169,7 +165,7 @@ main() {
 
         for (( retry=1; retry<=MAX_RETRIES; retry++ )); do
 
-        if download_page "$start" "$end"; then
+            if download_page "$start" "$end"; then
                 success=true
                 break
             fi
@@ -181,6 +177,7 @@ main() {
             if [[ "$retry" -lt "$MAX_RETRIES" ]]; then
                 sleep "$RETRY_DELAY"
             fi
+
         done
 
         if [[ "$success" != true ]]; then
@@ -228,12 +225,18 @@ main() {
 
     log "Carga no PostgreSQL concluída."
 
-    log "Iniciando preprocessamento e upsert na tabela analytics.car_area_imovel..."
+    # -------------------------------------------------------------------------
+    # 5. Upsert para analytics
+    # -------------------------------------------------------------------------
+
+    log "Iniciando upsert na tabela analytics.car_area_imovel..."
 
     psql_exec "CALL analytics.upsert_car_area_imovel('${UF}');"
 
+    psql_exec "VACUUM ANALYZE analytics.car_area_imovel;"
+
     # -------------------------------------------------------------------------
-    # 5. Limpeza
+    # 6. Limpeza
     # -------------------------------------------------------------------------
 
     rm -rf "$WORKDIR"
@@ -245,27 +248,6 @@ main() {
 }
 
 # -----------------------------------------------------------------------------
-# Argumentos
-# -----------------------------------------------------------------------------
-
-if [[ $# -lt 1 ]]; then
-    log "Uso: $0 <uf>"
-    exit 1
-fi
-
-UF=$(echo "$1" | tr '[:upper:]' '[:lower:]')
-
-if [[ ! " $ESTADOS_VALIDOS " =~ " $UF " ]]; then
-    log "ERRO: estado inválido: $UF"
-    exit 1
-fi
-
-LAYER="sicar_imoveis_${UF}"
-TABELA="car_area_imovel_${UF}"
-
-WORKDIR="/tmp/car_${UF}"
-
-# -----------------------------------------------------------------------------
 # PostgreSQL
 # -----------------------------------------------------------------------------
 
@@ -275,12 +257,29 @@ WORKDIR="/tmp/car_${UF}"
 : "${PGUSER:?PGUSER não definida}"
 : "${PGPASSWORD:?PGPASSWORD não definida}"
 
+# Conexão usada pelo GDAL/ogr2ogr
 PG_CONNECTION="PG:host=${PGHOST} port=${PGPORT} dbname=${PGDATABASE} user=${PGUSER} password=${PGPASSWORD}"
+
+# Conexão usada pelo PostgreSQL/psql
+PSQL_CONNECTION="host=${PGHOST} port=${PGPORT} dbname=${PGDATABASE} user=${PGUSER} password=${PGPASSWORD}"
+
 # -----------------------------------------------------------------------------
-# Preparação
+# Execução
 # -----------------------------------------------------------------------------
 
-rm -rf "$WORKDIR"
-mkdir -p "$WORKDIR"
+for UF in $ESTADOS; do
 
-main
+    LAYER="sicar_imoveis_${UF}"
+    TABELA="car_area_imovel_${UF}"
+    WORKDIR="/tmp/car_${UF}"
+
+    rm -rf "$WORKDIR"
+    mkdir -p "$WORKDIR"
+
+    main
+
+done
+
+log "=============================================="
+log "ETL CAR concluído para todas as UFs."
+log "=============================================="
