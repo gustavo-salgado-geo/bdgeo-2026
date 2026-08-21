@@ -14,19 +14,18 @@ CREATE TABLE IF NOT EXISTS analytics.car_area_imovel (
     id                  varchar,
     status_imovel       varchar,
     dat_criacao         timestamptz,
-    area                double,
+    area                double precision,
     condicao            varchar,
     uf                  varchar(2),
     municipio           varchar,
     cod_municipio_ibge  integer,
-    m_fiscal            double,
+    m_fiscal            double precision,
     tipo_imovel         varchar,
     geom_corrigida      boolean NOT NULL DEFAULT false,
     geom                geometry(MultiPolygon, 4674),
 
     CONSTRAINT car_area_imovel_pkey
         PRIMARY KEY (cod_imovel)
-    PARTITION BY LIST (uf)
 );
 
 
@@ -37,8 +36,7 @@ COMMENT ON COLUMN analytics.car_area_imovel.cod_imovel IS
 COMMENT ON COLUMN analytics.car_area_imovel.id IS
 'Identificador do registro de origem no SICAR/WFS, associado à versão do imóvel.';
 
-
--- Cria função para corrigir geometria inválida e publicar dados para esquema analytics
+-- Cria função para corrigir geometria inválida e publicar dados no esquema analytics
 CREATE OR REPLACE PROCEDURE analytics.upsert_car_area_imovel(
     p_uf text
 )
@@ -62,10 +60,16 @@ BEGIN
     )
     INTO v_processados;
 
-    RAISE NOTICE 'Processando CAR: UF=%, registros=%',
+    RAISE NOTICE
+        'Processando CAR: UF=%, tabela=%, registros=%',
         p_uf,
+        v_tabela_raw,
         v_processados;
 
+    /*
+     * 1. Insere/atualiza os dados sem executar ST_MakeValid.
+     *    A geometria original é copiada diretamente do raw.
+     */
     EXECUTE format($sql$
 
         INSERT INTO analytics.car_area_imovel (
@@ -96,16 +100,8 @@ BEGIN
             r.cod_municipio_ibge,
             r.m_fiscal,
             r.tipo_imovel,
-            NOT ST_IsValid(r.geom),
-            CASE
-                WHEN r.geom IS NULL THEN NULL
-                ELSE ST_Multi(
-                    ST_CollectionExtract(
-                        ST_MakeValid(r.geom),
-                        3
-                    )
-                )
-            END
+            false,
+            r.geom
 
         FROM (
             SELECT DISTINCT ON (cod_imovel)
@@ -148,7 +144,26 @@ BEGIN
 
     $sql$, v_tabela_raw);
 
-    RAISE NOTICE 'Carga concluída: UF=%', p_uf;
+    /*
+     * 2. Corrige somente as geometrias inválidas
+     *    da UF que acabou de ser processada.
+     */
+    UPDATE analytics.car_area_imovel
+    SET
+        geom = ST_Multi(
+            ST_CollectionExtract(
+                ST_MakeValid(geom),
+                3
+            )
+        ),
+        geom_corrigida = true
+    WHERE uf = upper(p_uf)
+      AND geom IS NOT NULL
+      AND NOT ST_IsValid(geom);
+
+    RAISE NOTICE
+        'Carga concluída: UF=%',
+        p_uf;
 
 END;
 $$;
