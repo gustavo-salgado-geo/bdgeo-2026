@@ -48,9 +48,83 @@ services:
       timeout: 2s
       retries: 15
       
+  rustfs-bdgeo:
+    image: ${RUSTFS_IMAGE:-rustfs/rustfs:1.0.0-alpha.80}
+    container_name: rustfs-bdgeo
+    ports:
+      - "${RUSTFS_PORT:-9000}:9000"
+      - "${RUSTFS_CONSOLE_PORT:-9001}:9001"
+    environment:
+      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY:-rustfs_admin}
+      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY:-rustfs_secret}
+      RUSTFS_VOLUMES: /data
+      RUSTFS_ADDRESS: ":9000"
+      RUSTFS_CONSOLE_ENABLE: "true"
+      RUSTFS_CONSOLE_ADDRESS: ":9001"
+    volumes:
+      - rustfs_data_bdgeo:/data
+    networks:
+      - bdgeo-net
+    healthcheck:
+      test: ["CMD-SHELL", "curl --fail http://127.0.0.1:9000/health && curl --fail http://127.0.0.1:9001/rustfs/console/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  rustfs-setup-bdgeo:
+    profiles: ["setup"]
+    image: amazon/aws-cli:2.34.48
+    container_name: rustfs-setup-bdgeo
+    depends_on:
+      rustfs-bdgeo:
+        condition: service_healthy
+    networks:
+      - bdgeo-net
+    environment:
+      AWS_ACCESS_KEY_ID: ${RUSTFS_ACCESS_KEY}
+      AWS_SECRET_ACCESS_KEY: ${RUSTFS_SECRET_KEY}
+      AWS_ENDPOINT_URL: ${AWS_ENDPOINT_URL:-http://rustfs:9000}
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        set -ex
+        AWS_ENDPOINT_URL=${AWS_ENDPOINT_URL:-http://rustfs:9000}
+        aws --endpoint-url "${AWS_ENDPOINT_URL}" s3 mb s3://bronze || true
+        aws --endpoint-url "${AWS_ENDPOINT_URL}" s3 mb s3://silver || true
+        aws --endpoint-url "${AWS_ENDPOINT_URL}" s3 mb s3://gold || true
+    restart: "no"
+    healthcheck:
+      test: ["CMD", "test", "-f", "/tmp/setup-bucket-done"]
+      interval: 5s
+      timeout: 2s
+      retries: 60
+
+  pygeoapi:
+    image: geopython/pygeoapi:latest
+    container_name: pygeoapi-bdgeo
+    depends_on:
+      postgres_bdgeo:
+        condition: service_healthy
+    ports:
+      - "5000:80"
+    environment:
+      PYGEOAPI_CONFIG: /pygeoapi/local.config.yml
+      PGHOST: postgres_bdgeo
+      PGPORT: 5432
+      PGDATABASE: ${POSTGRES_DB:-bdgeo_2026}
+      PGUSER: ${POSTGRES_USER:-super_user}
+      PGPASSWORD: ${POSTGRES_PASSWORD:-super_password}
+    volumes:
+      - ./api:/pygeoapi
+    networks:
+      - bdgeo-net
+
 networks:
   bdgeo-net:
     driver: bridge
 
 volumes:
   postgres_data:
+  rustfs_data_bdgeo:
