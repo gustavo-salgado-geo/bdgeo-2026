@@ -1,0 +1,53 @@
+[2026-08-23T11:17:48Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\process\manager\base.py:550} INFO - Starting dummy manager
+[2026-08-23T11:17:48Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\api\__init__.py:556} INFO - Process manager plugin loaded
+ * Serving Flask app 'flask_app'
+ * Debug mode: on
+[2026-08-23T11:17:49Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.117:5000
+[2026-08-23T11:17:49Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - [33mPress CTRL+C to quit[0m
+[2026-08-23T11:17:49Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO -  * Restarting with stat
+[2026-08-23T11:17:51Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\process\manager\base.py:550} INFO - Starting dummy manager
+[2026-08-23T11:17:51Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\api\__init__.py:556} INFO - Process manager plugin loaded
+[2026-08-23T11:17:51Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} WARNING -  * Debugger is active!
+[2026-08-23T11:17:51Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO -  * Debugger PIN: 115-221-935
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'type'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'rel'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'title'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'href'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'hreflang'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'bbox'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'crs'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'source_Type'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'source'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'type'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'rel'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'title'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'href'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'hreflang'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'bbox'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'crs'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'source_Type'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:96} WARNING - unknown locale 'source'
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:01] "GET / HTTP/1.1" 200 -
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:01] "[36mGET /static/css/default.css HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:01] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:01] "GET /?f=jsonld HTTP/1.1" 200 -
+[2026-08-23T11:18:01Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:01] "[36mGET /static/img/pygeoapi.png HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:26Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:26] "GET /collections?f=html HTTP/1.1" 200 -
+[2026-08-23T11:18:26Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:26] "[36mGET /static/css/default.css HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:26Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:26] "GET /collections?f=jsonld HTTP/1.1" 200 -
+[2026-08-23T11:18:26Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:26] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:26Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:26] "[36mGET /static/img/pygeoapi.png HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:30Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:30] "GET /collections/municipios_vpln HTTP/1.1" 200 -
+[2026-08-23T11:18:30Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:30] "[36mGET /static/css/default.css HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:30Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:30] "[36mGET /static/js/default.js HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:31Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:31] "GET /collections/municipios_vpln?f=jsonld HTTP/1.1" 200 -
+[2026-08-23T11:18:31Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:31] "[36mGET /static/img/pygeoapi.png HTTP/1.1[0m" 304 -
+[2026-08-23T11:18:31Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:18:31] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+[2026-08-23T11:21:35Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\api\itemtypes.py:283} WARNING - int() argument must be a string, a bytes-like object or a real number, not 'NoneType'
+[2026-08-23T11:21:35Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\provider\ogr.py:115} INFO - Using GDAL/OGR version: 3130300
+[2026-08-23T11:21:35Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\pygeoapi\l10n.py:481} INFO - OGR plugin has no locale support
+[2026-08-23T11:21:35Z] {C:\Users\gus_h\AppData\Local\Programs\OSGeo4W\apps\Python312\Lib\site-packages\werkzeug\_internal.py:97} INFO - 127.0.0.1 - - [23/Aug/2026 11:21:35] "GET /collections/hidrografia/items?limit=1 HTTP/1.1" 200 -
+^C
