@@ -108,6 +108,7 @@ resources:
     keywords:
       - Hidrografia
       - INPE
+      - BiomasBR
     links:
       - type: text/html
         rel: canonical
