@@ -23,11 +23,10 @@ metadata:
     title: Minha API OGC Features
     description: Camadas disponibilizadas via OGC Features
     keywords:
-      - municipios
-      - hidrografia
-      - IBGE
+      - Bancos de Dados Geográficos
       - INPE
-      - Vale do Paraíba
+      - Cadastro Ambiental Rural (CAR)
+      - Vale do Paraíba e Litoral Norte
     keywords_type: theme
     terms_of_service: https://creativecommons.org/licenses/by/4.0/
     url: http://localhost:5000
@@ -35,19 +34,19 @@ metadata:
     name: CC-BY 4.0 license
     url: https://creativecommons.org/licenses/by/4.0/
   provider:
-    name: Carla, Gustavo e Mariana
+    name: Carla, Gustavo Piva Lopes Salgado e Mariana
     url: http://localhost:5000
   contact:
-    name: Carla, Gustavo e Mariana
+    name: Carla, Gustavo Piva Lopes Salgado e Mariana
     position: Desenvolvedores
-    address: Não informado
-    city: Não informado
+    address: Avenida dos Astronautas, 1758
+    city: São José dos Campos
     stateorprovince: São Paulo
-    postalcode: Não informado
+    postalcode: 12227-010
     country: Brasil
-    phone: Não informado
+    phone: (12) 3208-6000
     fax: Não informado
-    email: seuemail@example.com
+    email: gustavo.salgado@inpe.br
     url: http://localhost:5000
     hours: Mo-Fr 08:00-17:00
     instructions: During hours of service
