@@ -4,6 +4,7 @@ server:
     port: 5000
   url: http://localhost:5000
   language: pt-BR
+  cors: true # Cross-Origin Resource Sharing - permite que aplicações web rodando no navegador consumam dados geoespaciais hospedados em um domínio diferente
   mimetype: application/json; charset=UTF-8
   encoding: utf-8
   gzip: false
@@ -11,8 +12,12 @@ server:
     url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
     attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
   limits:
-    default_items: 20
-    max_items: 500
+    default_items: 50
+    max_items: 1000
+    max_distance_x: 25
+    max_distance_y: 25
+    max_distance_units: m
+    on_exceed: throttle   # 'throttle' desacelera/limita o processamento / 'error'
 
 
 logging:
