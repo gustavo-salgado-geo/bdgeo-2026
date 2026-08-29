@@ -12,4 +12,5 @@ sed "s/port: 5000/port: ${PORT}/" \
 export PYGEOAPI_CONFIG=/tmp/pygeoapi-config.yml
 export PYGEOAPI_OPENAPI=/app/pygeoapi-openapi.yml
 
-exec pygeoapi serve --flask
+# Executa com Gunicorn otimizando o uso de memória
+exec gunicorn --bind 0.0.0.0:${PORT} --workers 1 --threads 2 pygeoapi.flask_app:app

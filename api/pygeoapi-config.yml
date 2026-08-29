@@ -6,6 +6,8 @@ server:
   url: https://bdgeo-2026.onrender.com/
   
   language: pt-BR
+  locales:
+    - pt-BR
   mimetype: application/json; charset=UTF-8
   encoding: utf-8
   gzip: false
@@ -17,8 +19,8 @@ server:
   pretty_print: true
   
   limits:
-    default_items: 50
-    max_items: 1000
+    default_items: 10
+    max_items: 100
     max_distance_x: 25
     max_distance_y: 25
     max_distance_units: m
@@ -57,12 +59,12 @@ metadata:
     address: Av dos Astronautas, 1.758
     city: São José dos Campos
     stateorprovince: São Paulo
-    postalcode: Não informado
+    postalcode: 12227-010
     country: Brasil
     phone: (12) 3208-6000
     fax: Não informado
     email: gustavo.salgado@inpe.br
-    url: https://bdgeo-2026.onrender.com/
+    url: https://github.com/gustavo-salgado-geo/bdgeo-2026
     hours: Mo-Fr 08:00-17:00
     instructions: During hours of service
     role: pointOfContact
