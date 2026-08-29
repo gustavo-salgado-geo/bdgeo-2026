@@ -3,7 +3,7 @@ server:
     host: 0.0.0.0
     port: 5000
     
-  url: http://localhost:5000
+  url: https://bdgeo-2026.onrender.com/
   
   language: pt-BR
   mimetype: application/json; charset=UTF-8
@@ -44,13 +44,13 @@ metadata:
       - Vale do Paraíba e Litoral Norte
     keywords_type: theme
     terms_of_service: https://creativecommons.org/licenses/by/4.0/
-    url: http://localhost:5000
+    url: https://github.com/gustavo-salgado-geo/bdgeo-2026
   license:
     name: CC-BY 4.0 license
     url: https://creativecommons.org/licenses/by/4.0/
   provider:
     name: Minha API OGC Features
-    url: http://localhost:5000
+    url: https://bdgeo-2026.onrender.com/
   contact:
     name: Carla Aparecida de Almeida Paula, Gustavo Piva Lopes Salgado e Mariana Guimarães Montoro Morais
     position: Desenvolvedores
@@ -62,7 +62,7 @@ metadata:
     phone: (12) 3208-6000
     fax: Não informado
     email: gustavo.salgado@inpe.br
-    url: http://localhost:5000
+    url: https://bdgeo-2026.onrender.com/
     hours: Mo-Fr 08:00-17:00
     instructions: During hours of service
     role: pointOfContact
@@ -81,7 +81,7 @@ resources:
       - type: text/html
         rel: canonical
         title: Página da coleção
-        href: http://localhost:5000/collections/municipios
+        href: https://bdgeo-2026.onrender.com/collections/municipios
         hreflang: pt-BR
     crs:
       - http://www.opengis.net/def/crs/OGC/1.3/CRS84
@@ -130,7 +130,7 @@ resources:
       - type: text/html
         rel: canonical
         title: Página da coleção
-        href: http://localhost:5000/collections/hidrografia
+        href: https://bdgeo-2026.onrender.com/collections/hidrografia
         hreflang: pt-BR
     extents:
       spatial:
@@ -175,7 +175,7 @@ resources:
       - type: text/html
         rel: canonical
         title: Página da coleção
-        href: http://localhost:5000/collections/marco_ue
+        href: https://bdgeo-2026.onrender.com/collections/marco_ue
         hreflang: pt-BR
     extents:
       spatial:
@@ -209,7 +209,7 @@ resources:
       - type: text/html
         rel: canonical
         title: Página da coleção
-        href: http://localhost:5000/collections/car
+        href: https://bdgeo-2026.onrender.com/collections/car
         hreflang: pt-BR
     extents:
       spatial:
@@ -252,7 +252,7 @@ resources:
       - type: text/html
         rel: canonical
         title: Página da coleção
-        href: http://localhost:5000/collections/desmatamento
+        href: https://bdgeo-2026.onrender.com/collections/desmatamento
         hreflang: pt-BR
     extents:
       spatial:
