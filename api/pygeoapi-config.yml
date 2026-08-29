@@ -1,36 +1,51 @@
+# ==============================================================================
+# CONFIGURAÇÃO GERAL DO SERVIDOR PYGEOAPI
+# ==============================================================================
 server:
+  # Endereço IP e porta onde o serviço escutará internamente no container
   bind:
     host: 0.0.0.0
     port: 5000
     
+  # URL pública oficial onde a API está publicada
   url: https://bdgeo-2026.onrender.com/
   
+  # Idioma padrão da interface e respostas da API
   language: pt-BR
+  # Idiomas suportados (evita avisos de 'unknown locale' nos logs)
   locales:
     - pt-BR
+    
+  # Formato de resposta padrão (GeoJSON / JSON) e codificação dos dados
   mimetype: application/json; charset=UTF-8
   encoding: utf-8
   gzip: false
   
+  # Provedor do mapa base exibido na interface Web da API
   map:
     url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
     attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
     
+  # Formatação legível (com indentação) nas respostas JSON
   pretty_print: true
   
   limits:
-    default_items: 10
-    max_items: 100
-    max_distance_x: 25
-    max_distance_y: 25
-    max_distance_units: m
-    on_exceed: throttle   # throttle ou error
+    default_items: 10       # Número padrão de registros por requisição
+    max_items: 100          # Número máximo permitido de registros por requisição
+    max_distance_x: 25      # Limite de busca no eixo X
+    max_distance_y: 25      # Limite de busca no eixo Y
+    max_distance_units: m   # Unidade de medida do limite espacial (metros)
+    on_exceed: throttle     # throttle trunca os registros ao limite em vez de retornar erro
 
-
+# Nível de detalhamento dos logs de execução (INFO, DEBUG, WARNING, ERROR)
 logging:
   level: INFO
 
+# ==============================================================================
+# METADADOS GERAIS E INFORMAÇÕES DE CONTATO DA API
+# ==============================================================================
 metadata:
+  # Identificação do serviço e palavras-chave de busca
   identification:
     title: Minha API OGC Features
     description: Camadas disponibilizadas via OGC Features
@@ -47,12 +62,18 @@ metadata:
     keywords_type: theme
     terms_of_service: https://creativecommons.org/licenses/by/4.0/
     url: https://github.com/gustavo-salgado-geo/bdgeo-2026
+  
+  # Termos de licença de uso dos dados
   license:
     name: CC-BY 4.0 license
     url: https://creativecommons.org/licenses/by/4.0/
+    
+  # Entidade provedora do serviço
   provider:
-    name: Minha API OGC Features
+    name: Instituto Nacional de Pesquisas Espaciais (INPE)
     url: https://bdgeo-2026.onrender.com/
+  
+  # Informações completas dos desenvolvedores/responsáveis pelo serviço
   contact:
     name: Carla Aparecida de Almeida Paula, Gustavo Piva Lopes Salgado e Mariana Guimarães Montoro Morais
     position: Desenvolvedores
@@ -68,9 +89,17 @@ metadata:
     hours: Mo-Fr 08:00-17:00
     instructions: During hours of service
     role: pointOfContact
+    
+# ==============================================================================
+# RECURSOS (RESOURCES): COLEÇÕES DE DADOS VETORIAIS E PROCESSOS
+# ==============================================================================
 resources:
+  
+  # ----------------------------------------------------------------------------
+  # Coleção: Municípios
+  # ----------------------------------------------------------------------------
   municipios:
-    type: collection
+    type: collection # Define a entidade como conjunto de dados geográficos
     title: municipios
     description: Municípios do Vale do Paraíba e Litoral Norte
     keywords:
@@ -79,31 +108,36 @@ resources:
       - Litoral Norte
       - IBGE
       - 2025
+    # Link de acesso direto à coleção na API
     links:
       - type: text/html
         rel: canonical
         title: Página da coleção
         href: https://bdgeo-2026.onrender.com/collections/municipios
         hreflang: pt-BR
+    # Sistemas de Referência de Coordenadas suportados para reprojeção dinâmica
     crs:
       - http://www.opengis.net/def/crs/OGC/1.3/CRS84
       - http://www.opengis.net/def/crs/EPSG/0/4674
+    # Limites geográficos da coleção (Bounding Box: [Xmin, Ymin, Xmax, Ymax])
     extents:
       spatial:
         bbox: [-46.2634585999999999,-24.1132837000000002, -44.1613651999999988,-22.4038478999999988]
         crs: http://www.opengis.net/def/crs/EPSG/0/4674
+    # Configuração de leitura dos dados via driver GDAL/OGR
     providers:
       - type: feature
-        name: OGR
+        name: OGR # Motor de conexão vetorial OGR
         data:
-          source_type: SQLite
-          source: /app/bdgeo26.db
-        layer: municipios
+          source_type: SQLite      # Formato do arquivo físico contendo as tabelas
+          source: /app/bdgeo26.db  # Caminho absoluto do banco dentro da imagem Docker
+        layer: municipios          # Nome da tabela dentro do banco SQLite
         crs:
           - http://www.opengis.net/def/crs/OGC/1.3/CRS84
           - http://www.opengis.net/def/crs/EPSG/0/4674
-        storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
-        id_field: fid
+        storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84  # Sistema de coordenadas original armazenado
+        id_field: fid # Coluna da Chave Primária utilizada para busca por ID
+        # Lista dos atributos da tabela expostos no JSON final
         properties:
           - cd_mun
           - nm_mun
@@ -120,7 +154,9 @@ resources:
           - cd_concurb
           - nm_concurb
           - area_km2
-         
+  # ----------------------------------------------------------------------------
+  # Coleção: Hidrografia
+  # ----------------------------------------------------------------------------
   hidrografia:
     type: collection
     title: hidrografia
@@ -165,6 +201,9 @@ resources:
           - satellite
           - sensor
           - uuid
+  # ----------------------------------------------------------------------------
+  # Coleção: Marco UE (Máscara de Desmatamento acumulado para acordo com a União Europeia)
+  # ----------------------------------------------------------------------------
   marco_ue:
     type: collection
     title: marco_ue
@@ -200,6 +239,9 @@ resources:
           - image_date
           - year
           - area_ha
+  # ----------------------------------------------------------------------------
+  # Coleção: CAR (Cadastro Ambiental Rural)
+  # ----------------------------------------------------------------------------
   car:
     type: collection
     title: car
@@ -240,7 +282,9 @@ resources:
           - cod_municipio_ibge
           - m_fiscal
           - tipo_imovel
-          
+  # ----------------------------------------------------------------------------
+  # Coleção: Desmatamento
+  # ----------------------------------------------------------------------------
   desmatamento:
     type: collection
     title: desmatamento
@@ -287,7 +331,10 @@ resources:
           - satellite
           - sensor
           - uuid
+  # ----------------------------------------------------------------------------
+  # Processo: Algoritmo/Função OGC API - Processes
+  # ----------------------------------------------------------------------------
   exemplo:
-    type: process
+    type: process   # Define que este recurso é um processo/algoritmo executável
     processor:
-      name: processes.exemplo.ExemploProcessor
+      name: processes.exemplo.ExemploProcessor # Pacote Python que contém a lógica do processo
