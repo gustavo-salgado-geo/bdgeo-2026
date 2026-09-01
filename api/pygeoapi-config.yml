@@ -137,23 +137,60 @@ resources:
           - http://www.opengis.net/def/crs/EPSG/0/4674
         storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84  # Sistema de coordenadas original armazenado
         id_field: fid # Coluna da Chave Primária utilizada para busca por ID
-        # Lista dos atributos da tabela expostos no JSON final
+        # Lista dos atributos da tabela expostos no JSON final com metadados
         properties:
-          - cd_mun
-          - nm_mun
-          - cd_rgi
-          - nm_rgi
-          - cd_rgint
-          - nm_rgint
-          - cd_uf
-          - nm_uf
-          - sigla_uf
-          - cd_regiao
-          - nm_regiao
-          - sigla_rg
-          - cd_concurb
-          - nm_concurb
-          - area_km2
+          cd_mun:
+            title: Código do Município
+            type: string
+            description: Código de 7 dígitos do município segundo o IBGE
+          nm_mun:
+            title: Nome do Município
+            type: string
+            description: Nome oficial do município
+          cd_rgi:
+            title: Código da Região Geográfica Imediata
+            type: string
+          nm_rgi:
+            title: Região Geográfica Imediata
+            type: string
+          cd_rgint:
+            title: Código da Região Geográfica Intermediária
+            type: string
+          nm_rgint:
+            title: Região Geográfica Intermediária
+            type: string
+          cd_uf:
+            title: Código da UF
+            type: string
+            description: Código numérico da Unidade da Federação
+          nm_uf:
+            title: Nome da UF
+            type: string
+            description: Nome da Unidade da Federação
+          sigla_uf:
+            title: Sigla da UF
+            type: string
+          cd_regiao:
+            title: Código da Região
+            type: string
+          nm_regiao:
+            title: Nome da Região
+            type: string
+          sigla_rg:
+            title: Sigla da Região
+            type: string
+          cd_concurb:
+            title: Código de Concentração Urbana
+            type: string
+          nm_concurb:
+            title: Concentração Urbana
+            type: string
+          area_km2:
+            title: Área Territorial
+            type: number
+            x-ogc-unit: km2
+            description: Área territorial do município em quilômetros quadrados
+        
   # ----------------------------------------------------------------------------
   # Coleção: Hidrografia
   # ----------------------------------------------------------------------------
@@ -187,20 +224,63 @@ resources:
         id_field: fid
         storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
         properties:
-          - state
-          - path_row
-          - main_class
-          - class_name
-          - def_cloud
-          - julian_day
-          - image_date
-          - year
-          - area_km
-          - scene_id
-          - source
-          - satellite
-          - sensor
-          - uuid
+          state:
+            title: Estado
+            type: string
+            description: Sigla da Unidade da Federação
+          path_row:
+            title: Órbita/Ponto
+            type: string
+            description: Identificação da órbita e ponto da cena de satélite
+          main_class:
+            title: Classe Principal
+            type: string
+            description: Categoria principal de cobertura da terra
+          class_name:
+            title: Nome da Classe
+            type: string
+            description: Classe específica do mapeamento
+          def_cloud:
+            title: Cobertura de Nuvem
+            type: string
+            description: Informação de obstrução por nuvens no polígono
+          julian_day:
+            title: Dia Juliano
+            type: integer
+            description: Dia juliano da aquisição da imagem
+          image_date:
+            title: Data da Imagem
+            type: string
+            description: Data em que a imagem de satélite foi registrada
+          year:
+            title: Ano
+            type: integer
+            description: Ano de referência
+          area_km:
+            title: Área (km²)
+            type: number
+            x-ogc-unit: km2
+            description: Área do polígono em quilômetros quadrados
+          scene_id:
+            title: ID da Cena
+            type: string
+            description: Identificador da cena do satélite
+          source:
+            title: Fonte
+            type: string
+            description: Sistema ou projeto de origem dos dados
+          satellite:
+            title: Satélite
+            type: string
+            description: Satélite utilizado para a detecção
+          sensor:
+            title: Sensor
+            type: string
+            description: Câmera/Sensor do satélite
+          uuid:
+            title: UUID
+            type: string
+            description: Identificador único universal do registro
   # ----------------------------------------------------------------------------
   # Coleção: Marco UE (Máscara de Desmatamento acumulado para acordo com a União Europeia)
   # ----------------------------------------------------------------------------
@@ -235,10 +315,23 @@ resources:
         id_field: fid
         storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
         properties:
-          - state
-          - image_date
-          - year
-          - area_ha
+          state:
+            title: Estado
+            type: string
+            description: Sigla do estado
+          image_date:
+            title: Data da Imagem
+            type: string
+            description: Data em que a imagem de satélite foi registrada
+          year:
+            title: Ano
+            type: integer
+            description: Ano de referência do mapeamento
+          area_ha:
+            title: Área Desmatada (ha)
+            type: number
+            x-ogc-unit: ha
+            description: Área total do polígono em hectares
   # ----------------------------------------------------------------------------
   # Coleção: CAR (Cadastro Ambiental Rural)
   # ----------------------------------------------------------------------------
@@ -272,16 +365,47 @@ resources:
         id_field: fid
         storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
         properties:
-          - cod_imovel
-          - status_imovel
-          - dat_criacao
-          - area
-          - condicao
-          - uf
-          - municipio
-          - cod_municipio_ibge
-          - m_fiscal
-          - tipo_imovel
+          cod_imovel:
+            title: Código do Imóvel
+            type: string
+            description: Código do imóvel no Sistema de Cadastro Ambiental Rural (SICAR)
+          status_imovel:
+            title: Status do Imóvel
+            type: string
+            description: Situação atual do cadastro (Ativo, Pendente, Cancelado, etc.)
+          dat_criacao:
+            title: Data de Criação
+            type: string
+            description: Data em que o registro foi criado no sistema
+          area:
+            title: Área do Imóvel
+            type: number
+            x-ogc-unit: ha  # Geralmente os dados do CAR nacional vêm em Hectares
+            description: Área total do imóvel rural
+          condicao:
+            title: Condição
+            type: string
+            description: Condição de análise ou inscrição do imóvel
+          uf:
+            title: UF
+            type: string
+            description: Unidade da Federação do imóvel
+          municipio:
+            title: Município
+            type: string
+            description: Nome do município onde o imóvel está localizado
+          cod_municipio_ibge:
+            title: Código IBGE do Município
+            type: string
+            description: Código numérico de 7 dígitos do IBGE para o município
+          m_fiscal:
+            title: Módulos Fiscais
+            type: number
+            description: Tamanho do imóvel expresso em módulos fiscais
+          tipo_imovel:
+            title: Tipo de Imóvel
+            type: string
+            description: Natureza da posse (IRU, AST, assentamento, etc.)
   # ----------------------------------------------------------------------------
   # Coleção: Desmatamento
   # ----------------------------------------------------------------------------
@@ -317,20 +441,63 @@ resources:
         id_field: fid
         storage_crs: http://www.opengis.net/def/crs/OGC/1.3/CRS84
         properties:
-          - state
-          - path_row
-          - main_class
-          - class_name
-          - def_cloud
-          - julian_day
-          - image_date
-          - year
-          - area_km
-          - scene_id
-          - source
-          - satellite
-          - sensor
-          - uuid
+          state:
+            title: Estado
+            type: string
+            description: Sigla da Unidade da Federação
+          path_row:
+            title: Órbita/Ponto
+            type: string
+            description: Identificação da órbita e ponto da cena de satélite
+          main_class:
+            title: Classe Principal
+            type: string
+            description: Categoria principal (ex. Desmatamento)
+          class_name:
+            title: Nome da Classe
+            type: string
+            description: Tipologia do desmatamento do ano ou resíduo de anos anteriores
+          def_cloud:
+            title: Cobertura de Nuvem
+            type: string
+            description: Informação se o desmatamento esteve sob nuvem anteriormente
+          julian_day:
+            title: Dia Juliano
+            type: integer
+            description: Dia juliano da imagem onde o desmatamento foi detectado
+          image_date:
+            title: Data da Imagem
+            type: string
+            description: Data da detecção pela imagem de satélite
+          year:
+            title: Ano PRODES
+            type: integer
+            description: Ano civil ou calendário PRODES associado ao registro
+          area_km:
+            title: Área (km²)
+            type: number
+            x-ogc-unit: km2
+            description: Extensão da área desmatada em quilômetros quadrados
+          scene_id:
+            title: ID da Cena
+            type: string
+            description: Identificador da cena base
+          source:
+            title: Fonte
+            type: string
+            description: Projeto de mapeamento (ex. PRODES, DETER)
+          satellite:
+            title: Satélite
+            type: string
+            description: Satélite utilizado para detectar a mudança
+          sensor:
+            title: Sensor
+            type: string
+            description: Sensor responsável pela aquisição da imagem
+          uuid:
+            title: UUID
+            type: string
+            description: Identificador único da feição
   # ----------------------------------------------------------------------------
   # Processo: Algoritmo/Função OGC API - Processes
   # ----------------------------------------------------------------------------
