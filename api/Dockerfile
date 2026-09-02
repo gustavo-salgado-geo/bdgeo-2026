@@ -36,9 +36,6 @@ COPY pygeoapi-config.yml .
 COPY pygeoapi-openapi.yml .
 COPY bdgeo26.db .
 
-# Copia a pasta contendo os scripts de processos/algoritmos personalizados (OGC Processes)
-COPY processes ./processes
-
 # Copia o script shell responsável por inicializar o serviço
 COPY start.sh .
 
