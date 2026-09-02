@@ -13,9 +13,15 @@ sed "s/port: 5000/port: ${PORT}/" \
     /app/pygeoapi-config.yml \
     > /tmp/pygeoapi-config.yml
 
-# Define as variáveis de ambiente necessárias para o pygeoapi encontrar os arquivos de configuração
+# Define a variável do config para o arquivo temporário
 export PYGEOAPI_CONFIG=/tmp/pygeoapi-config.yml
-export PYGEOAPI_OPENAPI=/app/pygeoapi-openapi.yml
+
+# Define a variável do OpenAPI para um NOVO arquivo temporário
+export PYGEOAPI_OPENAPI=/tmp/pygeoapi-openapi.yml
+
+# GERANDO O OPENAPI ATUALIZADO (A Mágica acontece aqui!)
+echo "Gerando novo arquivo OpenAPI com os metadados atualizados..."
+pygeoapi openapi generate $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI
 
 # Substitui o processo do shell pelo servidor de produção Gunicorn:
 # --bind: conecta a API a todas as interfaces de rede na porta atribuída ($PORT)
