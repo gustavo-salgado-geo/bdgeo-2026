@@ -498,10 +498,3 @@ resources:
             title: UUID
             type: string
             description: Identificador único da feição
-  # ----------------------------------------------------------------------------
-  # Processo: Algoritmo/Função OGC API - Processes
-  # ----------------------------------------------------------------------------
-  exemplo:
-    type: process   # Define que este recurso é um processo/algoritmo executável
-    processor:
-      name: processes.exemplo.ExemploProcessor # Pacote Python que contém a lógica do processo
