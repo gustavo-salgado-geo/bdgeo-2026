@@ -21,7 +21,14 @@ export PYGEOAPI_OPENAPI=/tmp/pygeoapi-openapi.yml
 
 # GERANDO O OPENAPI ATUALIZADO (A Mágica acontece aqui!)
 echo "Gerando novo arquivo OpenAPI com os metadados atualizados..."
-pygeoapi openapi generate $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI
+# O 'if !' captura a falha do comando sem deixar o 'set -e' matar o script prematuramente.
+# Se falhar, ele roda novamente sem o redirecionamento '>' para mostrar o Traceback exato na tela.
+if ! pygeoapi openapi generate $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI; then
+    echo "❌ ERRO DE VALIDAÇÃO: O OpenAPI rejeitou o seu pygeoapi-config.yml!"
+    echo "Detalhes do erro do schema:"
+    pygeoapi openapi generate $PYGEOAPI_CONFIG
+    exit 1
+fi
 
 # Substitui o processo do shell pelo servidor de produção Gunicorn:
 # --bind: conecta a API a todas as interfaces de rede na porta atribuída ($PORT)
